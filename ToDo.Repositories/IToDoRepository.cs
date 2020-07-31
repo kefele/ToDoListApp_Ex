@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using ToDoListApp.Models;
 
 namespace ToDo.Repositories
@@ -11,5 +9,7 @@ namespace ToDo.Repositories
         IEnumerable<ToDoItemModel> GetTodoItems();
 
         IEnumerable<ToDoItemModel> GetAllActiveItems();
+
+        void AddItem(ToDoItemModel item);
     }
 }

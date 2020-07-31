@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToDoListApp.Models;
 
 namespace ToDo.Repositories
 {
     public class ToDoRepository : IToDoRepository
     {
-        private readonly IToDoRepository _toDoRepositories;
-
         IList<ToDoItemModel> itemsCollection;
-        public ToDoRepository(IToDoRepository toDoRepository)
+        public ToDoRepository()
         {
 
 
@@ -22,7 +18,7 @@ namespace ToDo.Repositories
             itemsCollection.Add(new ToDoItemModel { ID = 3, Name = "Add Dependency Injection", CreateDate = DateTime.Now, DueDate = DateTime.Now.AddDays(3), Complete = false });
         }
 
-        public  IEnumerable<ToDoItemModel> GetTodoItems()
+        public IEnumerable<ToDoItemModel> GetTodoItems()
         {
             return itemsCollection;
         }
@@ -33,5 +29,18 @@ namespace ToDo.Repositories
             var list = itemsCollection.Where(i => !i.Complete);
             return list;
         }
+
+        public void AddItem(ToDoItemModel item)
+        {
+            itemsCollection.Add(item);
+        }
+
+        //public IEnumerable<ToDoItemModel> GetTodoItem(int ID)
+        //{
+        //    var item = itemsCollection.Where(i => i.ID == ID).FirstOrDefault();
+
+        //    return  itemsCollection.Where(i => i.ID == ID).FirstOrDefault();
+        //    return item;
+        //}
     }
 }

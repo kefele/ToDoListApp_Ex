@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using ToDo.Services.Interfaces;
 using ToDoListApp.Models;
@@ -21,13 +19,14 @@ namespace ToDoListApp.Controllers
         // GET api/todolist/items
         // Returns list of all todo items 
         [HttpGet]
-        [Route("items")] 
+        [Route("items")]
         public ActionResult<IEnumerable<ToDoItemModel>> GetAllItems()
         {
             //Todo add things
-            var list =_todoService.GetAllItems();
+            var list = _todoService.GetAllItems();
             return Ok(list);
         }
+
 
         // GET api/todolist/items
         // Returns list of all Active todo items 
@@ -39,5 +38,13 @@ namespace ToDoListApp.Controllers
             var list = _todoService.GetAllActiveItems();
             return Ok(list);
         }
+
+        [HttpPost]
+        [Route("items/add")]
+        public void Post([FromBody] ToDoItemModel item)
+        {
+            _todoService.AddItem(item);
+        }
+
     }
 }

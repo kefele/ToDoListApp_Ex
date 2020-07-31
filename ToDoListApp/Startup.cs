@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using ToDo.Repositories;
 using ToDo.Services;
 using ToDo.Services.Interfaces;
 
@@ -28,7 +22,8 @@ namespace ToDoListApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IToDoService, ToDoService>();
-
+            services.AddSingleton<IToDoRepository, ToDoRepository>();
+            services.AddSwaggerGen();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -47,6 +42,12 @@ namespace ToDoListApp
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            // Enable Swagger middleware to generate swagger json endpoints
+            app.UseSwagger();
+            app.UseSwaggerUI(opt => {
+                opt.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo version1 API");
+            });
         }
     }
 }
